@@ -1,4 +1,4 @@
-package com.michaelsmith.supply_coordinator_api;
+package com.michaelsmith.supply_coordinator_api.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
