@@ -76,21 +76,26 @@ public class VesselService {
         }
     }
 
-    private Position createNavalStartingPosition(int index) {
-        int row = index / 5;
-        int column = index % 5;
-        
-        if (index % 2 == 0) {
-            return new Position(
-                43.94710 + row * 2.8 + (column % 2) * 0.4,
-                -43.14855 + column * 1.1);
-        } else { 
-             return new Position(
-                18.500142 + row * 2.8 + (column % 2) * 0.4,
-                -35.911721 + column * 1.1);
-        }
-        
-    }
+private Position createNavalStartingPosition(int index) {
+    // Alternate between the two starting areas
+    boolean firstArea = index % 2 == 0;
+
+    double centerLat = firstArea ? 43.94710 : 28.500142;
+    double centerLon = -43.911721;
+
+    int groupIndex = index / 2;
+
+    int columns = 5;
+    int row = groupIndex / columns;
+    int column = groupIndex % columns;
+    double latitudeSpacing = 6.0;
+    double longitudeSpacing = 6.0;
+
+    return new Position(
+        centerLat + row * latitudeSpacing,
+        centerLon + column * longitudeSpacing
+    );
+}
 
     public synchronized ArrayList<Vessel> getVessels() {
         return new ArrayList<>(vessels);
